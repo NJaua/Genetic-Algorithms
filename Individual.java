@@ -34,6 +34,24 @@ public class Individual{
 		calculateFitness();
 	}
 
+	Individual(Individual mother, Individual father){
+		refImage = mother.refImage;
+		dnaLen = mother.dnaLen;
+		dna = new Gene[dnaLen];
+
+		for(int i = 0; i < dnaLen; i++){
+			if(Math.random() < 0.5)
+				dna[i] = mother.dna[i];
+			else
+				dna[i] = father.dna[i];
+
+			dna[i].mutate();
+		}
+
+		createImage();
+		calculateFitness();
+	}
+
 	private void createImage(){
 		myImage = new BufferedImage(refImage.getWidth(), refImage.getHeight(), TYPE_INT_ARGB);
 		Graphics2D g2d = myImage.createGraphics();
