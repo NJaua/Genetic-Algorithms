@@ -1,9 +1,15 @@
+import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
+import java.awt.Polygon;
+import java.awt.Color;
+import java.util.Random;
+
 public class Individual{
-	int dnaLen;
-	Gene[] dna;
-	BufferedImage refImage;
-	BufferedImage myImage;
-	double fitness;
+	public int dnaLen;
+	public Gene[] dna;
+	public BufferedImage refImage;
+	public BufferedImage myImage;
+	public double fitness;
 
 	Individual(int len, BufferedImage ref){
 		refImage = ref;
@@ -34,18 +40,17 @@ public class Individual{
 		calculateFitness();
 	}
 
-	Individual(Individual mother, Individual father){
+	Individual(Individual mother, Individual father, double mutRatio){
 		refImage = mother.refImage;
 		dnaLen = mother.dnaLen;
 		dna = new Gene[dnaLen];
+		int w = refImage.getWidth(), h = refImage.getHeight();
 
 		for(int i = 0; i < dnaLen; i++){
 			if(Math.random() < 0.5)
-				dna[i] = mother.dna[i];
+				dna[i] = mother.dna[i].mutate(w, h, mutRatio);
 			else
-				dna[i] = father.dna[i];
-
-			dna[i].mutate();
+				dna[i] = father.dna[i].mutate(w, h, mutRatio);
 		}
 
 		createImage();
@@ -53,7 +58,7 @@ public class Individual{
 	}
 
 	private void createImage(){
-		myImage = new BufferedImage(refImage.getWidth(), refImage.getHeight(), TYPE_INT_ARGB);
+		myImage = new BufferedImage(refImage.getWidth(), refImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = myImage.createGraphics();
 		for(int i = 0; i < dnaLen; i++){
 			g2d.setColor( dna[i].getColor() );
@@ -65,8 +70,8 @@ public class Individual{
 	private void calculateFitness(){
 		int w = refImage.getWidth(), h = refImage.getHeight();
 		double diff = 0.0;
-		for(int x = 0, x < w; x++)
-			for(int y = 0, y < h, y++){
+		for(int x = 0; x < w; x++)
+			for(int y = 0; y < h; y++){
 				Color c1 = new Color(refImage.getRGB(x, y), true);
 				Color c2 = new Color(myImage.getRGB(x,y), true);
 				diff += Math.abs(c1.getAlpha() - c2.getAlpha());
