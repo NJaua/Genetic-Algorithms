@@ -4,7 +4,7 @@ import java.awt.Polygon;
 import java.awt.Color;
 import java.util.Random;
 
-public class Individual{
+public class Individual implements Comparable<Individual>{
 	public int dnaLen;
 	public Gene[] dna;
 	public BufferedImage refImage;
@@ -81,5 +81,11 @@ public class Individual{
 			}
 
 		fitness = 1.0 - (diff / (w * h * 4 * 256));
+	}
+
+	public int compareTo(Individual i){
+		if(this.fitness>i.fitness) return 1;
+		else if(this.fitness<i.fitness) return -1;
+		else return 0;
 	}
 }
