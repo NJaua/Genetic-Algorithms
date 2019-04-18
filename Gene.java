@@ -17,13 +17,16 @@ public class Gene{
 		int[] x = new int[3];
 		int[] y = new int[3];
 		for(int i = 0; i < 3; i++){
+			x[i] = triangle.xpoints[i];
+			y[i] = triangle.ypoints[i];
+
 			if(Math.random() < mutRatio){
 				int deltax = (int) (Math.random() * Math.random() * w);
 				
 				if(Math.random() < 0.5)
-					x[i] = triangle.xpoints[i] + deltax;
+					x[i] += deltax;
 				else
-					x[i] = triangle.xpoints[i] - deltax;
+					x[i] -= deltax;
 
 				x[i] = Math.max(0, x[i]);
 				x[i] = Math.min(w-1, x[i]);
@@ -33,9 +36,9 @@ public class Gene{
 				int deltay = (int) (Math.random() * Math.random() * w);
 
 				if(Math.random() < 0.5)
-					y[i] = triangle.ypoints[i] + deltay;
+					y[i] += deltay;
 				else
-					y[i] = triangle.ypoints[i] - deltay;
+					y[i] -= deltay;
 
 				y[i] = Math.max(0, y[i]);
 				y[i] = Math.min(h-1, y[i]);
