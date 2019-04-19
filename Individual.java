@@ -40,7 +40,7 @@ public class Individual implements Comparable<Individual>{
 		calculateFitness();
 	}
 
-	Individual(Individual mother, Individual father, double mutRatio){
+	Individual(Individual mother, Individual father, double mutRatio, double mutAmount){
 		refImage = mother.refImage;
 		dnaLen = mother.dnaLen;
 		dna = new Gene[dnaLen];
@@ -48,9 +48,9 @@ public class Individual implements Comparable<Individual>{
 
 		for(int i = 0; i < dnaLen; i++){
 			if(Math.random() < 0.5)
-				dna[i] = mother.dna[i].mutate(w, h, mutRatio);
+				dna[i] = mother.dna[i].mutate(w, h, mutRatio, mutAmount);
 			else
-				dna[i] = father.dna[i].mutate(w, h, mutRatio);
+				dna[i] = father.dna[i].mutate(w, h, mutRatio, mutAmount);
 		}
 
 		createImage();

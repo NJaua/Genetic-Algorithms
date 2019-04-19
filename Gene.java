@@ -13,7 +13,7 @@ public class Gene{
 	Polygon getTrian(){ return triangle; }
 	Color getColor(){ return color; }
 
-	public Gene mutate(int w, int h, double mutRatio){
+	public Gene mutate(int w, int h, double mutRatio, double mutAmount){
 		int[] x = new int[3];
 		int[] y = new int[3];
 		for(int i = 0; i < 3; i++){
@@ -21,7 +21,7 @@ public class Gene{
 			y[i] = triangle.ypoints[i];
 
 			if(Math.random() < mutRatio){
-				int deltax = (int) (Math.random() * Math.random() * w);
+				int deltax = (int) (mutAmount * Math.random() * w);
 				
 				if(Math.random() < 0.5)
 					x[i] += deltax;
@@ -33,7 +33,7 @@ public class Gene{
 			}
 
 			if(Math.random() < mutRatio){
-				int deltay = (int) (Math.random() * Math.random() * w);
+				int deltay = (int) (mutAmount * Math.random() * w);
 
 				if(Math.random() < 0.5)
 					y[i] += deltay;
@@ -51,7 +51,7 @@ public class Gene{
 		int a = color.getAlpha();
 
 		if(Math.random() < mutRatio){
-			int delta = (int) (Math.random() * Math.random() * 256);
+			int delta = (int) (mutAmount * Math.random() * 256);
 			if(Math.random() < 0.5) r += delta;
 			else r -= delta;
 
@@ -60,7 +60,7 @@ public class Gene{
 		}
 		
 		if(Math.random() < mutRatio){
-			int delta = (int) (Math.random() * Math.random() * 256);
+			int delta = (int) (mutAmount * Math.random() * 256);
 			if(Math.random() < 0.5) g += delta;
 			else g -= delta;
 
@@ -69,7 +69,7 @@ public class Gene{
 		}
 
 		if(Math.random() < mutRatio){
-			int delta = (int) (Math.random() * Math.random() * 256);
+			int delta = (int) (mutAmount * Math.random() * 256);
 			if(Math.random() < 0.5) b += delta;
 			else b -= delta;
 
@@ -78,7 +78,7 @@ public class Gene{
 		}
 
 		if(Math.random() < mutRatio){
-			int delta = (int) (Math.random() * Math.random() * 256);
+			int delta = (int) (mutAmount * Math.random() * 256);
 			if(Math.random() < 0.5) a += delta;
 			else a -= delta;
 
