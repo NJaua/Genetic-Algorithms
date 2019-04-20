@@ -34,8 +34,8 @@ public class Main{
 
 		String file = reader.nextLine();
 		BufferedImage img = null;
-		Random rndGen = new Random( System.currentTimeMillis() );
 		img = ImageIO.read(new File(file));
+		Random rndGen = new Random( System.currentTimeMillis() );
 		
 		Individual[] ind = new Individual[n];
 		Individual[] old = new Individual[n];
@@ -50,7 +50,7 @@ public class Main{
 				old[i]=ind[i];
 
 			Arrays.sort(old);
-			System.out.println("Gen "+j+": "+old[n-1].fitness+", "+old[n-2].fitness+",... , "+old[0].fitness);
+			System.out.println("Gen "+j+": "+old[n-1].fitness+", "+old[n-2].fitness+",... , "+old[n-s].fitness+",... , "+old[0].fitness);
 			if(j%10 == 0){
 				File output = new File("gen"+j+".png");
 				ImageIO.write(ind[n-1].myImage, "png", output);

@@ -3,6 +3,7 @@ import java.awt.Graphics2D;
 import java.awt.Polygon;
 import java.awt.Color;
 import java.util.Random;
+import java.awt.Rectangle;
 
 public class Individual implements Comparable<Individual>{
 	public int dnaLen;
@@ -60,6 +61,8 @@ public class Individual implements Comparable<Individual>{
 	private void createImage(){
 		myImage = new BufferedImage(refImage.getWidth(), refImage.getHeight(), BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g2d = myImage.createGraphics();
+		g2d.setColor(new Color(0,0,0));
+		g2d.fill(new Rectangle(refImage.getWidth()-1,refImage.getHeight()-1));
 		for(int i = 0; i < dnaLen; i++){
 			g2d.setColor( dna[i].getColor() );
 			g2d.fill( dna[i].getTrian() );
@@ -74,13 +77,12 @@ public class Individual implements Comparable<Individual>{
 			for(int y = 0; y < h; y++){
 				Color c1 = new Color(refImage.getRGB(x, y), true);
 				Color c2 = new Color(myImage.getRGB(x,y), true);
-				diff += Math.abs(c1.getAlpha() - c2.getAlpha());
 				diff += Math.abs(c1.getBlue() - c2.getBlue());
 				diff += Math.abs(c1.getGreen() - c2.getGreen());
 				diff += Math.abs(c1.getRed() - c2.getRed());
 			}
 
-		fitness = 1.0 - (diff / (w * h * 4 * 256));
+		fitness = 1.0 - (diff / (w * h * 3 * 256));
 	}
 
 	public int compareTo(Individual i){
