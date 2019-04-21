@@ -53,7 +53,7 @@ public class Main{
 			System.out.println("Gen "+j+": "+old[n-1].fitness+", "+old[n-2].fitness+",... , "+old[n-s].fitness+",... , "+old[0].fitness);
 			if(j%10 == 0){
 				File output = new File("gen"+j+".png");
-				ImageIO.write(ind[n-1].myImage, "png", output);
+				ImageIO.write(old[n-1].myImage, "png", output);
 			}
 
 			for(i = 0; i < n; i++){
